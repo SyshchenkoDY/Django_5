@@ -21,23 +21,23 @@ class SensorsView(ListAPIView):
         return Response({'status': f'Датчик {r["name"]} - Добавлен'})
 
 
-# class SensorView(RetrieveAPIView):
-#     # Получение информации по датчику
-#     queryset = Sensor.objects.select_related('measurement')
-#     serializer_class = SensorSerializer
-#
-#     print(f'{queryset} --------------')
-#
-#     # Обновление датчика
-#     def patch(self, request, pk=None):
-#         r = request.data
-#         item = Sensor.objects.get(id=pk)
-#         serializer = SensorSerializer(item, data=request.data, partial=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"status": "success", "data": serializer.data})
-#         else:
-#             return Response({"status": "error", "data": serializer.errors})
+class SensorView(RetrieveAPIView):
+    # Получение информации по датчику
+    queryset = Sensor.objects.select_related('measurement')
+    serializer_class = SensorSerializer
+
+    print(f'{queryset} --------------')
+
+    # Обновление датчика
+    def patch(self, request, pk=None):
+        r = request.data
+        item = Sensor.objects.get(id=pk)
+        serializer = SensorSerializer(item, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "data": serializer.errors})
 
 
 class SensorView(APIView):
